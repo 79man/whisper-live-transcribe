@@ -2,8 +2,6 @@
   "manifest_version": 3,
   "name": "Local AI Video Transcriber",
   "version": "1.0.0",
-  "author": "Manoj Pillai",
-  "email": "manoj.pillai@gmail.com",
   "description": "Transcribe any video/audio playing in the browser using local AI models(Whisper) running within your browser.",
   "permissions": [
     "tabCapture",
@@ -14,7 +12,7 @@
     "sidePanel"
   ],
   "content_security_policy": {
-    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+    "extension_pages": "default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
   },
   "background": {
     "service_worker": "background.js"
@@ -27,6 +25,14 @@
       "128": "icons/icon128.png"
     }
   },
+  "offscreen_documents": [
+    {
+      "matches": ["<all_urls>"],
+      "url": "ui/offscreen.html",
+      "reason": "A/V capture and AI processing",
+      "justification": "Needed for capturing/blobs and local model inference"
+    }
+  ],
   "side_panel": {
     "default_path": "ui/sidepanel.html"
   },
@@ -36,8 +42,12 @@
     "128": "icons/icon128.png"
   },
   "host_permissions": ["<all_urls>"],
-  "web_accessible_resources": [{
-    "resources": ["libs/transformers.min.js"],
-    "matches": ["<all_urls>"]
-  }]
+  "web_accessible_resources": [
+    {
+      "resources": ["libs/transformers.min.js"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "minimum_chrome_version": "109",
+  "minimum_edge_version": "109"
 }
