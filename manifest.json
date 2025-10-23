@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "Local AI Video Transcriber",
+  "version": "1.0.0",
+  "author": "Manoj Pillai",
+  "email": "manoj.pillai@gmail.com",
+  "description": "Transcribe any video/audio playing in the browser using local AI models(Whisper) running within your browser.",
+  "permissions": [
+    "tabCapture",
+    "offscreen",
+    "storage",
+    "scripting",
+    "activeTab",
+    "sidePanel"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Open Transcription Panel",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "side_panel": {
+    "default_path": "ui/sidepanel.html"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "host_permissions": ["<all_urls>"],
+  "web_accessible_resources": [{
+    "resources": ["libs/transformers.min.js"],
+    "matches": ["<all_urls>"]
+  }]
+}

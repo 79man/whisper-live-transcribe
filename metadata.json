@@ -1,0 +1,6 @@
+
+{
+  "name": "Video Transcriber",
+  "description": "A Chrome extension to transcribe audio from any video playing in the current tab using client-side AI. The transcript can be saved to a file."
+}
+   

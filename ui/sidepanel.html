@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../styles/styles.css">
+</head>
+
+<body>
+    <div class="sidepanel-container">
+
+        <!-- Header with controls -->
+        <div class="header">
+            <h2>Video Transcription</h2>
+        </div>
+
+        <!-- Collapsible Model Section -->
+        <div class="collapsible-section">
+            <button id="model-toggle" class="collapsible-toggle collapsed">
+                
+                <span id="model-toggle-label">Model Settings</span>
+                <span id="model-toggle-summary" class="toggle-summary"></span>
+            </button>
+
+            <div id="model-content" class="collapsible-content">
+                <div class="model-selector">
+                    <label for="model-select">Model:</label>
+                    <select id="model-select" class="model-dropdown">
+                        <option value="Xenova/whisper-tiny.en">Whisper Tiny (Fastest, 39MB)</option>
+                        <option value="Xenova/whisper-base.en">Whisper Base (142MB)</option>
+                        <option value="Xenova/whisper-small.en">Whisper Small (Best, 244MB)</option>
+                    </select>
+                    <button id="reload-model-btn" class="btn-reload">Reload Model</button>
+                </div>
+
+                <!-- Transcription Mode Toggle -->
+                <div class="mode-selector">
+                    <label for="transcription-mode">Transcription Mode:</label>
+                    <select id="transcription-mode" class="mode-dropdown">
+                        <option value="batch">Batch (On Stop) - Most Accurate</option>
+                        <option value="streaming">Streaming (Real-time) - Every 30s</option>
+                    </select>
+                </div>
+
+                <!-- Batch Mode Warning -->
+                <div id="batch-warning" class="mode-warning hidden">
+                    <span class="warning-icon">⚠️</span>
+                    <div class="warning-text">
+                        <strong>Batch Mode:</strong> Best for recordings under 15 minutes.
+                        For longer videos, use Streaming mode to avoid memory issues.
+                    </div>
+                </div>
+
+                <!-- Model status & GPU (moved under collapsible) -->
+                <div class="model-info-row">
+                    <div class="model-info">
+                        <span class="model-label">Status:</span>
+                        <span id="model-status" class="model-status">Initializing...</span>
+                    </div>
+                    <div class="gpu-indicator">
+                        <span class="gpu-icon">🎮</span>
+                        <span id="gpu-status" class="gpu-status">Checking...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Model Loading Progress -->
+        <div id="model-loading" class="model-loading hidden">
+            <h3>Loading Model...</h3>
+            <div id="progress-items" class="progress-items">
+                <!-- Progress bars will be inserted here -->
+            </div>
+        </div>
+
+        <!-- Control buttons -->
+        <div class="controls-section">
+            <div class="status-row">
+                <div class="status-indicator">
+                    <span id="status-dot" class="status-dot"></span>
+                    <span id="status-text">Ready to record</span>
+                </div>
+                <div class="timer-display">
+                    <span id="recording-timer" class="timer">00:00</span>
+                </div>
+            </div>
+            <div class="control-buttons">
+                <button id="start-btn" class="btn-start">
+                    <span class="btn-icon">●</span>
+                    Start Recording
+                </button>
+                <button id="stop-btn" class="btn-stop" disabled>
+                    <span class="btn-icon">■</span>
+                    Stop Recording
+                </button>
+            </div>
+        </div>
+
+        <!-- Processing Status Section -->
+        <div id="processing-section" class="processing-section hidden">
+            <div class="processing-header">
+                <h3>🔄 Processing</h3>
+            </div>
+            <div class="processing-stats-simple">
+                <span id="buffer-size" class="stat-simple">Buffer: 0s</span>
+                <span id="processing-status" class="stat-simple">Idle</span>
+            </div>
+            <div class="processing-message">
+                <span id="processing-detail" class="processing-detail">Waiting for audio…</span>
+            </div>
+        </div>
+
+        <!-- Transcript display -->
+        <div class="transcript-section">
+            <div class="transcript-header">
+                <h3>Transcript</h3>
+                <div class="transcript-actions">
+                    <button id="copy-btn" class="btn-icon-small" title="Copy">📋</button>
+                    <button id="download-btn" class="btn-icon-small" title="Download">💾</button>
+                    <button id="clear-btn" class="btn-icon-small" title="Clear">🗑️</button>
+                </div>
+            </div>
+            <div id="transcript-text" class="transcript-content">
+                <!-- Transcription will appear here -->
+            </div>
+            <!-- Typing indicator -->
+            <div id="typing-indicator" class="typing-indicator hidden">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="sidepanel.js"></script>
+</body>
+
+</html>
